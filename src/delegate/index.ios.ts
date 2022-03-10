@@ -1,4 +1,4 @@
-import * as applicationModule from '@nativescript/core/application';
+import { Application } from '@nativescript/core';
 import { TnsOAuthClient } from "../index";
 
 function setup() {
@@ -13,15 +13,15 @@ function setup() {
 
     private static getAppDelegate() {
       // Play nice with other plugins by not completely ignoring anything already added to the appdelegate
-      if (applicationModule.ios.delegate === undefined) {
+      if (Application.ios.delegate === undefined) {
         @NativeClass
         class UIApplicationDelegateImpl extends UIResponder implements UIApplicationDelegate {
           public static ObjCProtocols = [UIApplicationDelegate];
         }
 
-        applicationModule.ios.delegate = UIApplicationDelegateImpl;
+        Application.ios.delegate = UIApplicationDelegateImpl;
       }
-      return applicationModule.ios.delegate;
+      return Application.ios.delegate;
     }
 
     private static addAppDelegateMethods = appDelegate => {
